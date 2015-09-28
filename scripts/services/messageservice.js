@@ -9,16 +9,13 @@ angular.module('chattyApp')
                     url: 'http://localhost:5546'
                 });
             },
+            
             postMessage: function(message, username) {
-                
-                return $http({
-                    method: 'POST',
-                    url: 'http://localhost:5546',
-                    data: {
+                return $http.post('http://localhost:5546', {
                         message: message,
                         username: username
                     }
-                });
+                );
             }
         }
     });

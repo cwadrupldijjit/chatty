@@ -2,7 +2,7 @@ var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
 
-var messages = ['Test'];
+var messages = [{message:"test",username:"me",createdAt:"2015-09-25T19:07:32.214Z"}];
 
 // app.use();
 app.use(bodyParser.json());
@@ -20,7 +20,12 @@ app.get('/', function(req, res) {
 });
 
 app.post('/', function(req, res) {
+	var newMsg = req.body;
+	
+	newMsg.createdAt = new Date();
+	
 	messages.push(req.body);
+	
 	console.log(messages);
 });
 

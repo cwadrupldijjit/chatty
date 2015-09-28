@@ -5,7 +5,7 @@
     
     <h4>Latest Chats:</h4>
     <div class="jumbotron">
-        <p ng-repeat="message in vm.messages">{{ message }}</p>
+        <p ng-repeat="message in vm.messages">{{ message.username }}: {{ message.message }} <span class="pull-right">{{ message.createdAt | date: "short" }}</span></p>
     </div>
     
     <form>

@@ -1,22 +1,31 @@
 'use strict';
 
 angular.module('chattyApp')
-    .controller('MessageController', function (MessageService) {
+    .controller('MessageController', function (MessageService, $timeout) {
         var vm = this;
         
         vm.messages = [];
         
-        vm.getMessages = function() {
-            console.log(MessageService.getMessages());
-            // console.log(vm.messages);
-            
-            vm.messages = MessageService.getMessages()
+        function pullData() {
+            MessageService.getMessages()
                 .then(function(response) {
-                    vm.messages = response;
+                    vm.messages = response.data;
                 });
+        }
+        
+        vm.getMessages = function() {
+            pullData();
         }();
         
         vm.postMessage = function() {
-            MessageService.postMessage(vm.newMessage, vm.username);
+            // console.log('test');
+            MessageService.postMessage(vm.newMessage, vm.username)
+                .then(function() {
+                    console.log(vm.getMessages());
+                });
+            
+            $timeout(function() {
+                pullData();
+            }, 100);
         };
     });
